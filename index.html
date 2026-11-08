@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentHub | Student Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>StudentHub</h2>
+                <small>Management Portal</small>
+            </div>
+        </div>
+
+        <p class="nav-label">MENU</p>
+
+        <button class="nav-item active" data-page="dashboard">
+            <span>▦</span> Dashboard
+        </button>
+
+        <button class="nav-item" data-page="students">
+            <span>♙</span> Students
+        </button>
+
+        <button class="nav-item" data-page="reports">
+            <span>▤</span> Reports
+        </button>
+
+        <div class="sidebar-bottom">
+            <div class="profile">
+                <div class="avatar">A</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>Admin account</small>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p>Welcome back! Manage your students easily.</p>
+            </div>
+
+            <button class="primary-btn" id="topAddBtn">
+                + Add Student
+            </button>
+        </header>
+
+        <!-- Dashboard -->
+        <section id="dashboardPage" class="page">
+
+            <div class="stats-grid">
+
+                <article class="stat-card">
+                    <div class="stat-icon purple">♙</div>
+                    <p>Total Students</p>
+                    <h2 id="totalStudents">0</h2>
+                    <small>Registered students</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon blue">▤</div>
+                    <p>Total Courses</p>
+                    <h2 id="totalCourses">0</h2>
+                    <small>Available courses</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <p>Average Marks</p>
+                    <h2 id="averageMarks">0%</h2>
+                    <small>Overall performance</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-icon orange">★</div>
+                    <p>Passed Students</p>
+                    <h2 id="passedStudents">0</h2>
+                    <small>Marks 40 or above</small>
+                </article>
+
+            </div>
+
+            <div class="content-card">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Students</h2>
+                        <p>Latest student records</p>
+                    </div>
+
+                    <button class="text-btn" id="viewAllBtn">
+                        View all →
+                    </button>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STUDENT</th>
+                                <th>ROLL NUMBER</th>
+                                <th>COURSE</th>
+                                <th>MARKS</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recentTable"></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="content-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Course Overview</h2>
+                        <p>Students enrolled in each course</p>
+                    </div>
+                </div>
+
+                <div id="courseOverview" class="course-overview"></div>
+            </div>
+
+        </section>
+
+        <!-- Students page -->
+        <section id="studentsPage" class="page hidden">
+
+            <div class="stats-grid compact-stats">
+
+                <article class="stat-card">
+                    <p>Total Students</p>
+                    <h2 id="studentCount">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <p>Passed</p>
+                    <h2 id="studentPassed">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <p>Failed</p>
+                    <h2 id="studentFailed">0</h2>
+                </article>
+
+            </div>
+
+            <div class="content-card">
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Student Records</h2>
+                        <p>Manage your complete student database</p>
+                    </div>
+
+                    <button class="primary-btn" id="addStudentBtn">
+                        + Add Student
+                    </button>
+                </div>
+
+                <div class="toolbar">
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search name, roll number or email..."
+                    >
+
+                    <select id="courseFilter">
+                        <option value="">All Courses</option>
+                    </select>
+
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="Pass">Passed</option>
+                        <option value="Fail">Failed</option>
+                    </select>
+
+                    <select id="sortFilter">
+                        <option value="newest">Newest First</option>
+                        <option value="name">Name A-Z</option>
+                        <option value="marks">Highest Marks</option>
+                        <option value="lowest">Lowest Marks</option>
+                    </select>
+
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STUDENT</th>
+                                <th>ROLL NUMBER</th>
+                                <th>COURSE</th>
+                                <th>MARKS</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <span id="recordInfo">Showing 0 records</span>
+                    <button class="outline-btn" id="exportBtn">
+                        ↓ Export CSV
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Reports page -->
+        <section id="reportsPage" class="page hidden">
+
+            <div class="stats-grid">
+
+                <article class="stat-card">
+                    <p>Total Students</p>
+                    <h2 id="reportTotal">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <p>Passed Students</p>
+                    <h2 id="reportPassed">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <p>Failed Students</p>
+                    <h2 id="reportFailed">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <p>Pass Percentage</p>
+                    <h2 id="passPercentage">0%</h2>
+                </article>
+
+            </div>
+
+            <div class="content-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Academic Reports</h2>
+                        <p>Course-wise student performance</p>
+                    </div>
+
+                    <button class="outline-btn" id="reportExportBtn">
+                        ↓ Export CSV
+                    </button>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>COURSE</th>
+                                <th>STUDENTS</th>
+                                <th>AVERAGE MARKS</th>
+                                <th>PASSED</th>
+                                <th>FAILED</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="reportTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- Student form modal -->
+<div class="modal hidden" id="studentModal">
+
+    <div class="modal-box">
+
+        <div class="modal-heading">
+            <div>
+                <h2 id="modalTitle">Add New Student</h2>
+                <p>Enter student information below</p>
+            </div>
+
+            <button class="close-btn" id="closeModal">×</button>
+        </div>
+
+        <form id="studentForm">
+
+            <input type="hidden" id="studentId">
+
+            <label for="studentName">Full Name *</label>
+            <input
+                id="studentName"
+                type="text"
+                placeholder="Enter full name"
+                required
+                maxlength="80"
+            >
+
+            <label for="studentRoll">Roll Number *</label>
+            <input
+                id="studentRoll"
+                type="text"
+                placeholder="e.g. CSE101"
+                required
+                maxlength="30"
+            >
+
+            <label for="studentEmail">Email *</label>
+            <input
+                id="studentEmail"
+                type="email"
+                placeholder="student@example.com"
+                required
+                maxlength="120"
+            >
+
+            <label for="studentCourse">Course *</label>
+            <select id="studentCourse" required>
+                <option value="">Select course</option>
+                <option value="B.Tech CSE">B.Tech CSE</option>
+                <option value="B.Tech IT">B.Tech IT</option>
+                <option value="BCA">BCA</option>
+                <option value="BBA">BBA</option>
+                <option value="MCA">MCA</option>
+            </select>
+
+            <label for="studentMarks">Marks (0–100) *</label>
+            <input
+                id="studentMarks"
+                type="number"
+                min="0"
+                max="100"
+                placeholder="Enter marks"
+                required
+            >
+
+            <div class="modal-actions">
+                <button type="button" class="outline-btn" id="cancelModal">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-btn" id="saveBtn">
+                    Save Student
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
